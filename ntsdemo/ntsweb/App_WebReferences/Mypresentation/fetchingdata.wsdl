@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://comsatsNtsdemo.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://comsatsNtsdemo.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://comsatsNtsdemo.org/">
+      <s:element name="fetchData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="fetchDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="fetchDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="fetchDataSoapIn">
+    <wsdl:part name="parameters" element="tns:fetchData" />
+  </wsdl:message>
+  <wsdl:message name="fetchDataSoapOut">
+    <wsdl:part name="parameters" element="tns:fetchDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="fetchingdataSoap">
+    <wsdl:operation name="fetchData">
+      <wsdl:input message="tns:fetchDataSoapIn" />
+      <wsdl:output message="tns:fetchDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="fetchingdataSoap" type="tns:fetchingdataSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="fetchData">
+      <soap:operation soapAction="http://comsatsNtsdemo.org/fetchData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="fetchingdataSoap12" type="tns:fetchingdataSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="fetchData">
+      <soap12:operation soapAction="http://comsatsNtsdemo.org/fetchData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="fetchingdata">
+    <wsdl:port name="fetchingdataSoap" binding="tns:fetchingdataSoap">
+      <soap:address location="http://localhost/ntsdemo/fetchingdata.asmx" />
+    </wsdl:port>
+    <wsdl:port name="fetchingdataSoap12" binding="tns:fetchingdataSoap12">
+      <soap12:address location="http://localhost/ntsdemo/fetchingdata.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
